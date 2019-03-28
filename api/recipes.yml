@@ -1,0 +1,89 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Recipes API"
+schemes:
+  - "http"
+paths:
+  /recipes:
+    get:
+      summary: "Retrieve a list of recipes"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Recipe"
+
+    post:
+      summary: "Create a new recipe"
+      parameters:
+        - $ref: "#/parameters/recipeBodyParam"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            $ref: "#/definitions/Recipe"
+
+  /recipes/{recipeId}:
+    get:
+      summary: "Retrieve a recipe"
+      produces:
+        - "application/json"
+      parameters:
+        - $ref: "#/parameters/recipeIdQueryParam"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            $ref: "#/definitions/Recipe"
+
+    delete:
+      summary: "Delete a recipe"
+      parameters:
+        - $ref: "#/parameters/recipeIdQueryParam"
+      responses:
+        200:
+          description: "Successful Response"
+
+    put:
+      summary: "Update a recipe"
+      parameters:
+        - $ref: "#/parameters/recipeIdQueryParam"
+        - $ref: "#/parameters/recipeBodyParam"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            $ref: "#/definitions/Recipe"
+
+definitions:
+  Recipe:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      prepTime:
+        type: number
+      cookTime:
+        type: number
+
+parameters:
+  recipeIdQueryParam:
+    name: "recipeId"
+    in: "path"
+    description: "The id of the recipe"
+    required: true
+    type: number
+  recipeBodyParam:
+    name: "recipe"
+    in: "body"
+    description: "The id of the recipe"
+    required: true
+    schema:
+      $ref: "#/definitions/Recipe"
